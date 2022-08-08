@@ -196,48 +196,26 @@ Console.WriteLine($"Начальный массив: [{string.Join(", ", inputAr
 inputArray = QuickSort(inputArray, 0, inputArray.Length - 1);
 Console.WriteLine($"Конечный массив: [{string.Join(", ", inputArray)}]"); */
 
-int[] InputArray(int size)
+int[] InputArray(int size, Random random)
 {
 	int[] array = new int[size];
-	for (int i = 0; i < array.Length; i++)
-	{
-		array[i] = new Random().Next(-99, 100);
-	}
+	for (int i = 0; i < array.Length; i++) array[i] = random.Next(-99, 100);
 	return array;
 }
-int SearchNumber(int[] inputArray, int num)
+int SearchNumber(int[] inputArray, int num, int min, int max)
 {
-	int k = -1;
-	if (inputArray.Length % 2 == 0) k = inputArray.Length < 4 ? inputArray.Length / 2
-	: inputArray.Length >= 4 && inputArray.Length < 6 ? inputArray.Length / 2 + 1 : inputArray.Length / 2 - 1;
-	else k = inputArray.Length < 4 ? inputArray.Length / 2 : inputArray.Length - 1;
-	if (num == inputArray[0]) return 1;
-	if (num == inputArray[inputArray.Length - 1]) return inputArray.Length;
-	if (num < inputArray[inputArray.Length / 2])
-	{
-		int[] outputArray = inputArray.Length % 2 == 0 ? new int[inputArray.Length / 2] : new int[inputArray.Length / 2 + 1];
-		for (int i = 0; i < outputArray.Length; i++) outputArray[i] = inputArray[i];
-		inputArray = inputArray.Length % 2 == 0 ? new int[inputArray.Length / 2] : new int[inputArray.Length / 2 + 1];
-		inputArray = outputArray;
-		return SearchNumber(inputArray, num);
-	}
-	else
-	{
-		int[] outputArray = inputArray.Length % 2 == 0 ? new int[inputArray.Length / 2] : new int[inputArray.Length / 2 + 1];
-		for (int i = 0, j = inputArray.Length / 2; i < outputArray.Length; i++, j++) outputArray[i] = inputArray[j];
-		inputArray = inputArray.Length % 2 == 0 ? new int[inputArray.Length / 2] : new int[inputArray.Length / 2 + 1];
-		inputArray = outputArray;
-		return SearchNumber(inputArray, num) * k;
-	}
+	if (min > max || num < inputArray[0] || num > inputArray[inputArray.Length - 1]) return -2;
+	int midle = min + (max - min) / 2;
+	if (num == inputArray[midle]) return midle;
+	if (num < inputArray[midle]) return SearchNumber(inputArray, num, min, midle - 1);
+	return SearchNumber(inputArray, num, midle + 1, max);
 }
-
-int size = new Random().Next(4, 10);
-Console.WriteLine(size);
-// int[] inputArray = InputArray(size);
-int[] inputArray = { -34, -24, 62, 33, -25, -19, -67, 97 };
-Console.WriteLine($"[{string.Join(", ", inputArray)}]");
+Random random = new Random();
+int size = random.Next(1, 10);
+int[] inputArray = InputArray(size, random);
+Console.WriteLine($"Неотсортированный массив чисел: [{string.Join(", ", inputArray)}]");
 Console.Write("Введите число которое хотите найти: ");
-int num = inputArray[5];
+int num = Convert.ToInt32(Console.ReadLine());
 Array.Sort(inputArray);
-int index = SearchNumber(inputArray, num);
-Console.WriteLine($"Искомое число {num} в массиве [{string.Join(", ", inputArray)}] на {index} позиции.");
+int index = SearchNumber(inputArray, num, 0, inputArray.Length - 1);
+Console.WriteLine($"Искомое число {num} в отсортированном массиве чисел [{string.Join(", ", inputArray)}] на {index + 1} позиции.");
