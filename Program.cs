@@ -207,7 +207,10 @@ int[] InputArray(int size)
 }
 int SearchNumber(int[] inputArray, int num)
 {
-	int k = inputArray.Length / 2;
+	int k = -1;
+	if (inputArray.Length % 2 == 0) k = inputArray.Length < 4 ? inputArray.Length / 2
+	: inputArray.Length >= 4 && inputArray.Length < 6 ? inputArray.Length / 2 + 1 : inputArray.Length / 2 - 1;
+	else k = inputArray.Length < 4 ? inputArray.Length / 2 : inputArray.Length - 1;
 	if (num == inputArray[0]) return 1;
 	if (num == inputArray[inputArray.Length - 1]) return inputArray.Length;
 	if (num < inputArray[inputArray.Length / 2])
@@ -224,8 +227,7 @@ int SearchNumber(int[] inputArray, int num)
 		for (int i = 0, j = inputArray.Length / 2; i < outputArray.Length; i++, j++) outputArray[i] = inputArray[j];
 		inputArray = inputArray.Length % 2 == 0 ? new int[inputArray.Length / 2] : new int[inputArray.Length / 2 + 1];
 		inputArray = outputArray;
-		return inputArray.Length < 4 ? SearchNumber(inputArray, num) * k + 1 : inputArray.Length >= 4 && inputArray.Length < 6 ? SearchNumber(inputArray, num) * k + 1
-		: inputArray.Length >= 6 ? SearchNumber(inputArray, num) * k / 2 + 1 : SearchNumber(inputArray, num) * k;
+		return SearchNumber(inputArray, num) * k;
 	}
 }
 
