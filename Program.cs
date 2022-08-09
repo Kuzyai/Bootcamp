@@ -196,7 +196,7 @@ Console.WriteLine($"Начальный массив: [{string.Join(", ", inputAr
 inputArray = QuickSort(inputArray, 0, inputArray.Length - 1);
 Console.WriteLine($"Конечный массив: [{string.Join(", ", inputArray)}]"); */
 
-int[] InputArray(int size, Random random)
+/* int[] InputArray(int size, Random random)
 {
 	int[] array = new int[size];
 	for (int i = 0; i < array.Length; i++) array[i] = random.Next(-99, 100);
@@ -205,7 +205,7 @@ int[] InputArray(int size, Random random)
 int SearchNumber(int[] inputArray, int num, int min, int max)
 {
 	if (min > max || num < inputArray[0] || num > inputArray[inputArray.Length - 1]) return -2;
-	int midle = min + (max - min) / 2;
+	int midle = (min + max) / 2;
 	if (num == inputArray[midle]) return midle;
 	if (num < inputArray[midle]) return SearchNumber(inputArray, num, min, midle - 1);
 	return SearchNumber(inputArray, num, midle + 1, max);
@@ -218,4 +218,50 @@ Console.Write("Введите число которое хотите найти:
 int num = Convert.ToInt32(Console.ReadLine());
 Array.Sort(inputArray);
 int index = SearchNumber(inputArray, num, 0, inputArray.Length - 1);
-Console.WriteLine($"Искомое число {num} в отсортированном массиве чисел [{string.Join(", ", inputArray)}] на {index + 1} позиции.");
+Console.WriteLine($"Искомое число {num} в отсортированном массиве чисел [{string.Join(", ", inputArray)}] на {index + 1} позиции."); */
+
+/* int[,] MatrixGeneration(int rows, int columns)
+{
+	Random rand = new Random();
+	int[,] matrix = new int[rows, columns];
+	for (int i = 0; i < rows; i++)
+		for (int j = 0; j < columns; j++) matrix[i, j] = rand.Next(1, 10);
+	return matrix;
+}
+int[,] SerialMatrixMul(int[,] matrix1, int[,] matrix2)
+{
+	int[,] serialMulRes = new int[matrix1.GetLength(0), matrix2.GetLength(1)];
+	if (matrix1.GetLength(0) != matrix2.GetLength(1))
+		Console.WriteLine("Умножение матриц невозможно так как количество строк первой матрицы не равно количеству столбцов второй матрицы.");
+	else
+	{
+		for (int i = 0; i < matrix1.GetLength(0); i++)
+			for (int j = 0; j < matrix2.GetLength(1); j++)
+				for (int k = 0; k < matrix2.GetLength(0); k++)
+					serialMulRes[i, j] += matrix1[i, k] * matrix2[k, j];
+	}
+	return serialMulRes;
+}
+void PrintMatrix(int[,] matrix)
+{
+	for (int i = 0; i < matrix.GetLength(0); i++)
+	{
+		for (int j = 0; j < matrix.GetLength(1); j++)
+			Console.Write($"{matrix[i, j]} ");
+		Console.WriteLine();
+	}
+}
+
+Console.Write("Введите количество строк матрицы: ");
+int size1 = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите количество столбцов матрицы: ");
+int size2 = Convert.ToInt32(Console.ReadLine());
+int[,] matrix1 = MatrixGeneration(size1, size2);
+int[,] matrix2 = MatrixGeneration(size2, size1);
+int[,] serialMulRes = SerialMatrixMul(matrix1, matrix2);
+PrintMatrix(matrix1);
+Console.WriteLine();
+PrintMatrix(matrix2);
+Console.WriteLine();
+PrintMatrix(serialMulRes); */
+
