@@ -264,4 +264,3 @@ Console.WriteLine();
 PrintMatrix(matrix2);
 Console.WriteLine();
 PrintMatrix(serialMulRes); */
-
