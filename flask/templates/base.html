@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{title}}</title>
+</head>
+<style>
+	html{
+		background-color: aquamarine;
+	}
+	button{
+		background-color: #ff0011;
+	}
+</style>
+<body>
+{% block content %}
+
+<ul>Имена студентов:</ul>
+{% for i in user_name %}
+	<li>{{i}}</li>
+{% endfor %}
+
+<button><a href="/about_me">Обо мне</a></button>
+<button><a href="/hobbies">Хобби</a></button>
+<button><a href="/plans_for_life">Планы на жизнь</a></button>
+
+{% endblock %}
+</body>
+</html>
